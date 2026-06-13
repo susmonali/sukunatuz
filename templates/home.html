@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Salat Tracker — Daily Prayer Dashboard</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-mark">
+        <div class="brand-icon">
+          <!-- Crescent moon SVG -->
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 3a9 9 0 1 0 9 9c-4.97 0-9-4.03-9-9z"/>
+          </svg>
+        </div>
+        <div>
+          <div class="brand-name">Salat Tracker</div>
+          <div class="brand-sub">Prayer Dashboard</div>
+        </div>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+
+      <a class="nav-item active" href="#">
+        <i class="ti ti-layout-dashboard" aria-hidden="true"></i> Dashboard
+      </a>
+
+      <a class="nav-item" href="#">
+        <i class="ti ti-clock" aria-hidden="true"></i> Prayer Times
+      </a>
+      <a class="nav-item" href="#">
+        <i class="ti ti-chart-bar" aria-hidden="true"></i> Statistics
+      </a>
+
+      <a class="nav-item" href="#">
+        <i class="ti ti-moon" aria-hidden="true"></i> Hijri Calendar
+      </a>
+
+      <div class="nav-section-label">Account</div>
+
+      <a class="nav-item" href="#">
+        <i class="ti ti-settings" aria-hidden="true"></i> Settings
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="user-pill">
+        <div class="avatar">AK</div>
+        <div class="user-info">
+          <div class="user-name">Ahmad Karimov</div>
+          <div class="user-streak">🔥 14-day streak</div>
+        </div>
+        <i class="ti ti-dots-vertical" style="font-size:15px; color: rgba(255,255,255,0.3);" aria-hidden="true"></i>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main">
+
+    <!-- TOPBAR -->
+    <header class="topbar">
+      <div class="topbar-title">Dashboard</div>
+      <div class="topbar-date">
+        <i class="ti ti-calendar-event" style="font-size:15px;" aria-hidden="true"></i>
+        Saturday, 13 June 2026
+      </div>
+      <div class="hijri-badge">Hijri date</div>
+
+    </header>
+
+    <div class="content">
+
+      <!-- ALERT: Asr is approaching
+      <div class="alert-banner" id="alertBanner">
+        <i class="ti ti-bell-ringing" aria-hidden="true"></i>
+        <div class="alert-text"><strong>Asr</strong> prayer begins in 38 minutes — 16:42 local time.</div>
+        <i class="ti ti-x alert-dismiss" onclick="document.getElementById('alertBanner').style.display='none'" aria-label="Dismiss"></i>
+      </div> -->
+
+      <!-- LOCATION BAR
+      <div class="location-bar">
+        <i class="ti ti-map-pin" aria-hidden="true"></i>
+        <span class="location-name">Tashkent, Uzbekistan</span>
+        <span style="color: var(--text-3); font-size: 12px;">Calculation: Muslim World League · Hanafi</span>
+        <span class="location-change">Change →</span>
+      </div> -->
+
+      <!-- NEXT PRAYER HERO -->
+      <div class="prayer-header">
+        <div class="next-prayer-info">
+          <div class="next-label">Next Prayer</div>
+          <div class="next-prayer-name">Asr — العصر</div>
+          <div class="next-prayer-time">16:42 · in 38 minutes</div>
+        </div>
+
+        <div class="countdown-row">
+          <div class="countdown-block">
+            <div class="countdown-value" id="cd-h">00</div>
+            <div class="countdown-label">hrs</div>
+          </div>
+          <div class="countdown-sep">:</div>
+          <div class="countdown-block">
+            <div class="countdown-value" id="cd-m">38</div>
+            <div class="countdown-label">min</div>
+          </div>
+          <div class="countdown-sep">:</div>
+          <div class="countdown-block">
+            <div class="countdown-value" id="cd-s">00</div>
+            <div class="countdown-label">sec</div>
+          </div>
+        </div>
+
+        <div class="progress-ring-wrap">
+          <svg width="90" height="90" viewBox="0 0 90 90">
+            <circle cx="45" cy="45" r="38" fill="none" stroke="rgba(255,255,255,0.07)" stroke-width="5"/>
+            <circle cx="45" cy="45" r="38" fill="none" stroke="#B8952A" stroke-width="5"
+              stroke-dasharray="239" stroke-dashoffset="60" stroke-linecap="round"
+              transform="rotate(-90 45 45)"/>
+            <text x="45" y="48" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="500" fill="rgba(255,255,255,0.8)">3 / 5</text>
+          </svg>
+        </div>
+      </div>
+
+      <!-- PRAYER CARDS STRIP -->
+      <div class="prayer-strip" id="strip">
+
+  <div class="p-card done" data-prayer="fajr" onclick="toggle(this)">
+    <div class="p-check">
+      <svg viewBox="0 0 14 14"><polyline points="2,7 6,11 12,3"/></svg>
+    </div>
+    <div class="p-name">Fajr</div>
+    <div class="p-time">05:08</div>
+  </div>
+
+  <div class="p-card done" data-prayer="dhuhr" onclick="toggle(this)">
+    <div class="p-check">
+      <svg viewBox="0 0 14 14"><polyline points="2,7 6,11 12,3"/></svg>
+    </div>
+    <div class="p-name">Dhuhr</div>
+    <div class="p-time">13:10</div>
+  </div>
+
+  <div class="p-card done" data-prayer="asr" onclick="toggle(this)">
+    <div class="p-check">
+      <svg viewBox="0 0 14 14"><polyline points="2,7 6,11 12,3"/></svg>
+    </div>
+    <div class="p-name">Asr</div>
+    <div class="p-time">16:42</div>
+  </div>
+
+  <div class="p-card active" data-prayer="maghrib" onclick="toggle(this)">
+    <div class="p-check">
+      <svg viewBox="0 0 14 14"><polyline points="2,7 6,11 12,3"/></svg>
+    </div>
+    <div class="p-name">Maghrib</div>
+    <div class="p-time">21:04</div>
+  </div>
+
+  <div class="p-card" data-prayer="isha" onclick="toggle(this)">
+    <div class="p-check">
+      <svg viewBox="0 0 14 14"><polyline points="2,7 6,11 12,3"/></svg>
+    </div>
+    <div class="p-name">Isha</div>
+    <div class="p-time">22:48</div>
+  </div>
+
+</div>
+
+      <!-- STATS ROW -->
+      <div class="stats-row">
+        <div class="stat-tile">
+          <div class="stat-label">Current streak</div>
+          <div class="stat-value">14<span class="stat-unit">days</span></div>
+          <div class="stat-delta delta-up"><i class="ti ti-trending-up" style="font-size:12px"></i> +2 this week</div>
+        </div>
+        <div class="stat-tile">
+          <div class="stat-label">This month</div>
+          <div class="stat-value">91<span class="stat-unit">/ 100</span></div>
+          <div class="stat-delta delta-up"><i class="ti ti-trending-up" style="font-size:12px"></i> 91% rate</div>
+        </div>
+        <div class="stat-tile">
+          <div class="stat-label">Missed (month)</div>
+          <div class="stat-value">4<span class="stat-unit">prayers</span></div>
+          <div class="stat-delta delta-down"><i class="ti ti-trending-down" style="font-size:12px"></i> -2 vs last</div>
+        </div>
+        <div class="stat-tile">
+          <div class="stat-label">On time rate</div>
+          <div class="stat-value">84<span class="stat-unit">%</span></div>
+          <div class="stat-delta delta-up"><i class="ti ti-trending-up" style="font-size:12px"></i> improving</div>
+        </div>
+      </div>
+
+      <!-- MAIN GRID -->
+      <div class="grid-2">
+
+        <!-- WEEKLY OVERVIEW
+        <div class="card">
+          <div class="card-header">
+            <i class="ti ti-chart-bar card-icon" aria-hidden="true"></i>
+            <span class="card-title">This Week</span>
+            <a class="card-action" href="#">Full report →</a>
+          </div>
+          <div class="card-body">
+            <div class="week-chart">
+              <div class="week-col">
+                <div class="week-bar-wrap"><div class="week-bar full" style="height:80%"></div></div>
+                <div class="week-count">5</div>
+                <div class="week-day">MON</div>
+              </div>
+              <div class="week-col">
+                <div class="week-bar-wrap"><div class="week-bar full" style="height:100%"></div></div>
+                <div class="week-count">5</div>
+                <div class="week-day">TUE</div>
+              </div>
+              <div class="week-col">
+                <div class="week-bar-wrap"><div class="week-bar partial" style="height:60%"></div></div>
+                <div class="week-count">3</div>
+                <div class="week-day">WED</div>
+              </div>
+              <div class="week-col">
+                <div class="week-bar-wrap"><div class="week-bar full" style="height:100%"></div></div>
+                <div class="week-count">5</div>
+                <div class="week-day">THU</div>
+              </div>
+              <div class="week-col">
+                <div class="week-bar-wrap"><div class="week-bar full" style="height:100%"></div></div>
+                <div class="week-count">5</div>
+                <div class="week-day">FRI</div>
+              </div>
+              <div class="week-col">
+                <div class="week-bar-wrap"><div class="week-bar full" style="height:80%"></div></div>
+                <div class="week-count">4</div>
+                <div class="week-day">SAT</div>
+              </div>
+              <div class="week-col">
+                <div class="week-bar-wrap"><div class="week-bar partial today" style="height:40%"></div></div>
+                <div class="week-count">3</div>
+                <div class="week-day">TODAY</div>
+              </div>
+            </div>
+            <div style="display:flex; gap:12px; margin-top:14px;">
+              <span style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text-3)"><span style="width:8px;height:8px;border-radius:2px;background:var(--sage);display:inline-block;"></span>All 5</span>
+              <span style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text-3)"><span style="width:8px;height:8px;border-radius:2px;background:var(--gold);display:inline-block;"></span>Partial</span>
+              <span style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text-3)"><span style="width:8px;height:8px;border-radius:2px;background:var(--surface-3);display:inline-block;"></span>Missed</span>
+            </div>
+          </div>
+        </div> -->
+
+      </div>
+
+      <!-- EXTRA PRAYERS + NOTES -->
+      <div class="grid-2">
+
+        <!-- MONTHLY MINI CALENDAR -->
+        <div class="card">
+          <div class="card-header">
+            <i class="ti ti-calendar card-icon" aria-hidden="true"></i>
+            <span class="card-title">June 2026</span>
+            <a class="card-action" href="#">Full view →</a>
+          </div>
+          <div class="card-body">
+            <div class="month-grid">
+              <div class="month-day-label">Su</div>
+              <div class="month-day-label">Mo</div>
+              <div class="month-day-label">Tu</div>
+              <div class="month-day-label">We</div>
+              <div class="month-day-label">Th</div>
+              <div class="month-day-label">Fr</div>
+              <div class="month-day-label">Sa</div>
+
+              <!-- Week 1: June starts Sunday -->
+              <div class="month-day"><div class="day-num" style="color:var(--text-3)">1</div><div class="day-dots"><div class="day-dot dot-full"></div><div class="day-dot dot-full"></div><div class="day-dot dot-full"></div><div class="day-dot dot-full"></div><div class="day-dot dot-full"></div></div></div>
+              <div class="month-day"><div class="day-num">2</div><div class="day-dots"><div class="day-dot dot-full"></div><div class="day-dot dot-full"></div><div class="day-dot dot-full"></div><div class="day-dot dot-full"></div><div class="day-dot dot-full"></div></div></div>
+              <div class="month-day"><div class="day-num">3</div><div class="day-dots"><div class="day-dot dot-full"></div><div class="day-dot dot-full"></div><div class="day-dot dot-full"></div><div class="day-dot dot-part"></div><div class="day-dot dot-full"></div></div></div>
+              <div class="month-day"><div class="day-num">4</div><div class="day-dots"><div class="day-dot dot-full"></div><div class="day-dot dot-full"></div><div class="day-dot dot-full"></div><div class="day-dot dot-full"></div><div class="day-dot dot-full"></div></div></div>
+              <div class="month-day"><div class="day-num">5</div><div class="day-dots"><div class="day-dot dot-full"></div><div class="day-dot dot-full"></div><div class="day-dot dot-full"></div><div class="day-dot dot-full"></div><div class="day-dot dot-full"></div></div></div>
+              <div class="month-day"><div class="day-num">6</div><div class="day-dots"><div class="day-dot dot-full"></div><div class="day-dot dot-full"></div><div class="day-dot dot-miss"></div><div class="day-dot dot-full"></div><div class="day-dot dot-full"></div></div></div>
+              <div class="month-day"><div class="day-num">7</div><div class="day-dots"><div class="day-dot dot-full"></div><div class="day-dot dot-full"></div><div class="day-dot dot-full"></div><div class="day-dot dot-full"></div><div class="day-dot dot-full"></div></div></div>
+
+              <div class="month-day"><div class="day-num">8</div><div class="day-dots"><div class="day-dot dot-full"></div><div class="day-dot dot-part"></div><div class="day-dot dot-full"></div><div class="day-dot dot-full"></div><div class="day-dot dot-full"></div></div></div>
+              <div class="month-day"><div class="day-num">9</div><div class="day-dots"><div class="day-dot dot-full"></div><div class="day-dot dot-full"></div><div class="day-dot dot-full"></div><div class="day-dot dot-full"></div><div class="day-dot dot-full"></div></div></div>
+              <div class="month-day"><div class="day-num">10</div><div class="day-dots"><div class="day-dot dot-full"></div><div class="day-dot dot-full"></div><div class="day-dot dot-full"></div><div class="day-dot dot-full"></div><div class="day-dot dot-full"></div></div></div>
+              <div class="month-day"><div class="day-num">11</div><div class="day-dots"><div class="day-dot dot-full"></div><div class="day-dot dot-full"></div><div class="day-dot dot-full"></div><div class="day-dot dot-full"></div><div class="day-dot dot-full"></div></div></div>
+              <div class="month-day"><div class="day-num">12</div><div class="day-dots"><div class="day-dot dot-full"></div><div class="day-dot dot-full"></div><div class="day-dot dot-full"></div><div class="day-dot dot-full"></div><div class="day-dot dot-full"></div></div></div>
+              <div class="month-day"><div class="day-num">13</div><div class="day-dots"><div class="day-dot dot-full"></div><div class="day-dot dot-full"></div><div class="day-dot dot-full"></div><div class="day-dot dot-full"></div><div class="day-dot dot-full"></div></div></div>
+              <div class="month-day today"><div class="day-num">14</div><div class="day-dots"><div class="day-dot dot-full"></div><div class="day-dot dot-full"></div><div class="day-dot dot-full"></div><div class="day-dot dot-none"></div><div class="day-dot dot-none"></div></div></div>
+
+              <div class="month-day"><div class="day-num" style="color:var(--text-3)">15</div></div>
+              <div class="month-day"><div class="day-num" style="color:var(--text-3)">16</div></div>
+              <div class="month-day"><div class="day-num" style="color:var(--text-3)">17</div></div>
+              <div class="month-day"><div class="day-num" style="color:var(--text-3)">18</div></div>
+              <div class="month-day"><div class="day-num" style="color:var(--text-3)">19</div></div>
+              <div class="month-day"><div class="day-num" style="color:var(--text-3)">20</div></div>
+              <div class="month-day"><div class="day-num" style="color:var(--text-3)">21</div></div>
+              <div class="month-day"><div class="day-num" style="color:var(--text-3)">22</div></div>
+              <div class="month-day"><div class="day-num" style="color:var(--text-3)">23</div></div>
+              <div class="month-day"><div class="day-num" style="color:var(--text-3)">24</div></div>
+              <div class="month-day"><div class="day-num" style="color:var(--text-3)">25</div></div>
+              <div class="month-day"><div class="day-num" style="color:var(--text-3)">26</div></div>
+              <div class="month-day"><div class="day-num" style="color:var(--text-3)">27</div></div>
+              <div class="month-day"><div class="day-num" style="color:var(--text-3)">28</div></div>
+              <div class="month-day"><div class="day-num" style="color:var(--text-3)">29</div></div>
+              <div class="month-day"><div class="day-num" style="color:var(--text-3)">30</div></div>
+            </div>
+          </div>
+        </div>
+
+              <!-- NOTES -->
+      
+
+      </div>
+      <div class="card" style="margin-bottom: 4px;">
+        <div class="card-header">
+          <i class="ti ti-pencil card-icon" aria-hidden="true"></i>
+          <span class="card-title">Today's Reflection</span>
+          <button class="topbar-btn" style="padding:4px 10px; font-size:12px;">
+            <i class="ti ti-device-floppy" aria-hidden="true"></i> Save
+          </button>
+        </div>
+        <div class="card-body">
+          <textarea class="notes-area" placeholder="Write reflection ..."></textarea>
+        </div>
+      </div>
+    </div><!-- /content -->
+  </main>
+</div>
+<script>
+  function toggle(card) {
+    const badges = {
+      fajr: { cls: 'badge-home', label: 'Home' },
+      dhuhr: { cls: 'badge-mosque', label: 'Mosque' },
+      asr: { cls: 'badge-work', label: 'Work' },
+      maghrib: { cls: 'badge-next', label: 'Next' },
+      isha: { cls: 'badge-later', label: 'Later' }
+    };
+    const key = card.dataset.prayer;
+    if (card.classList.contains('done')) {
+      card.classList.remove('done');
+      const b = card.querySelector('.p-badge');
+      if (badges[key]) { b.className = 'p-badge ' + badges[key].cls; b.textContent = badges[key].label; }
+    } else {
+      card.classList.remove('active');
+      card.classList.add('done');
+      const b = card.querySelector('.p-badge');
+      b.className = 'p-badge badge-home';
+      b.textContent = 'Done';
+    }
+    updateSummary();
+  }
+
+  function updateSummary() {
+    const done = document.querySelectorAll('.p-card.done').length;
+    document.getElementById('count-display').textContent = done + ' / 5';
+    document.getElementById('progress-fill').style.width = (done / 5 * 100) + '%';
+  }
+
+  function resetAll() {
+    const defaults = {
+      fajr: { state: 'done', badge: 'badge-home', label: 'Home' },
+      dhuhr: { state: 'done', badge: 'badge-mosque', label: 'Mosque' },
+      asr: { state: 'done', badge: 'badge-work', label: 'Work' },
+      maghrib: { state: 'active', badge: 'badge-next', label: 'Next' },
+      isha: { state: '', badge: 'badge-later', label: 'Later' }
+    };
+    document.querySelectorAll('.p-card').forEach(card => {
+      const key = card.dataset.prayer;
+      const d = defaults[key];
+      card.classList.remove('done', 'active');
+      if (d.state) card.classList.add(d.state);
+      const b = card.querySelector('.p-badge');
+      b.className = 'p-badge ' + d.badge;
+      b.textContent = d.label;
+    });
+    updateSummary();
+  }
+</script>
+<script>
+  // COUNTDOWN TIMER
+  function updateCountdown() {
+    const now = new Date();
+    const target = new Date(now);
+    target.setHours(17, 42, 0, 0);
+    if (now > target) target.setDate(target.getDate() + 1);
+    const diff = Math.max(0, Math.floor((target - now) / 1000));
+    const h = Math.floor(diff / 3600);
+    const m = Math.floor((diff % 3600) / 60);
+    const s = diff % 60;
+    document.getElementById('cd-h').textContent = String(h).padStart(2,'0');
+    document.getElementById('cd-m').textContent = String(m).padStart(2,'0');
+    document.getElementById('cd-s').textContent = String(s).padStart(2,'0');
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+
+  // DHIKR COUNTER
+  function tap(countId, progressId, target) {
+    const el = document.getElementById(countId);
+    const pb = document.getElementById(progressId);
+    let val = parseInt(el.textContent, 10);
+    if (val < target) {
+      val++;
+      el.textContent = val;
+      pb.style.width = Math.round((val / target) * 100) + '%';
+    } else {
+      val = 0;
+      el.textContent = 0;
+      pb.style.width = '0%';
+    }
+  }
+</script>
+
+</body>
+</html>
